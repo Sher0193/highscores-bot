@@ -24,7 +24,8 @@ if (config.daemon) {
 
 const sh = new ScoreboardHandler();
 
-var pnTimeout = new Date().getTime();
+const MAX_REQUESTS = 3;
+var requests = 0;
 
 client.on("ready", () => {
     // This event will run if the bot starts, and logs in, successfully.
@@ -93,33 +94,51 @@ client.on("message", async message => {
 
           message.channel.send(exampleEmbed);    
     }*/
-    
+
     if (command === "pnotes" || command === "pn") {
+        if (requests >= MAX_REQUESTS) {
+            message.channel.send("Too many requests. Fuck off.");
+        }
+        requests++;
         axios.get('https://vidyascape.org/files/patchnotes.json').then(response => {
-            let pn1 = response.data[0];
-            let header = '**'+pn1['header'] + '**\n';
-            let major = "";
-            let minor = "";
-            for (let i = 0; i < pn1['major'].length; i++) {
-                major += pn1['major'][i] + '\n';
-            }
-            for (let i = 0; i < pn1['minor'].length; i++) {
-                minor += pn1['minor'][i] + '\n';
-            }
-            const pnotesEmbed = new Discord.MessageEmbed()
-                .setColor('RANDOM')
-                .setTitle(header)
-                .setURL('https://vidyascape.org/patchnotes')
-                .addFields(
-                    { name: 'Major', value: major },
-                    { name: 'Minor', value: minor }
-                )
-            message.channel.send(pnotesEmbed);    
-//             message.channel.send(header+"```"+string+"```"+"https://vidyascape.org/patchnotes");
-    });
+                let pn1 = response.data[0];
+                let header = '**' + pn1['header'] + '**\n';
+                let major = "";
+                let minor = "";
+                for (let i = 0; i < pn1['major'].length; i++) {
+                    major += pn1['major'][i] + '\n';
+                }
+                for (let i = 0; i < pn1['minor'].length; i++) {
+                    minor += pn1['minor'][i] + '\n';
+                }
+                const pnotesEmbed = new Discord.MessageEmbed()
+                    .setColor('RANDOM')
+                    .setTitle(header)
+                    .setURL('https://vidyascape.org/patchnotes')
+                    .addFields({
+                        name: 'Major',
+                        value: major
+                    }, {
+                        name: 'Minor',
+                        value: minor
+                    })
+                message.channel.send(pnotesEmbed);
+                //             message.channel.send(header+"```"+string+"```"+"https://vidyascape.org/patchnotes");
+            })
+            .catch(function(error) {
+                // handle error
+                console.log(error);
+                m.edit("Unable to fetch data.");
+            })
+            .finally() {
+                requests--;
+            };
     }
 
     if (command === "tracker") {
+        if (requests >= MAX_REQUESTS) {
+            message.channel.send("Too many requests. Fuck off.");
+        }
         if (!message.channel.name.includes("bot")) {
             message.channel.send("Please keep this command to a designated bot channel.");
             return;
@@ -127,6 +146,7 @@ client.on("message", async message => {
         var mod = args[0] != undefined ? args[0].toLowerCase() : "";
         var request = `https://vidyascape.org/api/tracker/skill/overall/1?time=` + (mod === 'weekly' ? 604800 : mod === 'monthly' ? 2592000 : 86400) + `&ironman=0`;
         const m = await message.channel.send("Loading request...");
+        requests++;
         axios.get(request)
             .then(function(response) {
                 // handle success
@@ -143,10 +163,16 @@ client.on("message", async message => {
                 // handle error
                 console.log(error);
                 m.edit("Unable to fetch data.");
-            });
+            })
+            .finally() {
+                requests--;
+            };
     }
 
     if (command === "stats") {
+        if (requests >= MAX_REQUESTS) {
+            message.channel.send("Too many requests. Fuck off.");
+        }
         if (!message.channel.name.includes("bot")) {
             message.channel.send("Please keep this command to a designated bot channel.");
             return;
@@ -157,6 +183,7 @@ client.on("message", async message => {
         }
         var request = `https://vidyascape.org/api/highscores/player/` + player;
         const m = await message.channel.send("Loading request...");
+        requests++;
         axios.get(request)
             .then(function(response) {
                 // handle success
@@ -173,7 +200,10 @@ client.on("message", async message => {
                 // handle error
                 console.log(error);
                 m.edit("Unable to fetch data.");
-            });
+            })
+            .finally() {
+                requests--;
+            };
     }
 
     if (command === "ping") {
