@@ -95,34 +95,9 @@ client.on("message", async message => {
     }*/
     
     if (command === "pnotes" || command === "pn") {
-        if ((new Date().getTime()) - 30000 < pnTimeout) {
-            message.channel.send("Please wait before using this command again...");
-            return;
-        }
-        pnTimeout = new Date().getTime();
-        const scrape = require('website-scraper');
-        const PhantomPlugin = require('website-scraper-phantom');
-        var fs = require('fs');
-        var DomParser = require('dom-parser');
-        var parser = new DomParser();
-        const m = await message.channel.send("Scraping patchnotes from https://vidyascape.org/patchnotes ...");
-        
-       await scrape({
-            urls: ['https://vidyascape.org/patchnotes'],
-            directory: './data/saved',
-            plugins: [ new PhantomPlugin() ]
-        })
-        .then(function(response) {
-            fs.readFile('./data/saved/index.html', 'utf8', (err, data) => {
-                if (err) throw err;
-                var dom = parser.parseFromString(data);
-                var cards = dom.getElementsByClassName("card-body");
-                var regex = /(<div[^>]+>|<div>|<\/div>)/g;
-                var pnotes = cards[1].innerHTML.replace(regex, "\n");
-                m.edit("```" + pnotes + "```https://vidyascape.org/patchnotes");
-            });
-            utils.deleteFolderRecursive('./data/saved');
-        });
+        axios.get('https://vidyascape.org/files/patchnotes.json').then(response => {
+            message.channel.send(response.data[0]);
+    });
     }
 
     if (command === "tracker") {
