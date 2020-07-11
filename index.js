@@ -54,6 +54,10 @@ client.on("message", async message => {
     // It's good practice to ignore other bots. This also makes your bot ignore itself
     // and not get into a spam loop (we call that "botception").
     if (message.author.bot) return;
+          
+    if (message.content.toLowerCase().includes("read the wiki")) {
+        message.channel.send("READ THE WIKI http://vscape.wikidot.com/");
+    }
 
     // Also good practice to ignore any message that does not start with our prefix, 
     // which is set in the configuration file.
@@ -67,7 +71,7 @@ client.on("message", async message => {
     const command = args.shift().toLowerCase();
 
     if (command === "about") {
-        message.channel.send("HighscoresBot is a /v/scape helper bot, created by Ovid.");
+        message.channel.send("HighscoresBot is a vidyascape.org helper bot, created by Ovid.");
     }
 
 
@@ -94,6 +98,20 @@ client.on("message", async message => {
 
           message.channel.send(exampleEmbed);    
     }*/
+    
+    if (command === "dl" || command === "download") {
+        message.channel.send("https://vidyascape.org/downloads");
+    }
+    
+    if (command === "wiki" || command === "readwiki") {
+        message.channel.send("http://vscape.wikidot.com/");
+    }
+    if (command === "blog" || command === "devblog") {
+        message.channel.send("https://vidyascape.org/devblog");
+    }
+    if (command === "map") {
+        message.channel.send("https://vidyascape.org/map");
+    }
 
     if (command === "pnotes" || command === "pn") {
         if (requests >= MAX_REQUESTS) {
@@ -103,8 +121,8 @@ client.on("message", async message => {
         axios.get('https://vidyascape.org/files/patchnotes.json').then(response => {
                 let pn1 = response.data[0];
                 let header = '**' + pn1['header'] + '**\n';
-                let major = "";
-                let minor = "";
+                let major = '';
+                let minor = '';
                 for (let i = 0; i < pn1['major'].length; i++) {
                     major += pn1['major'][i] + '\n';
                 }
@@ -114,14 +132,13 @@ client.on("message", async message => {
                 const pnotesEmbed = new Discord.MessageEmbed()
                     .setColor('RANDOM')
                     .setTitle(header)
-                    .setURL('https://vidyascape.org/patchnotes')
-                    .addFields({
-                        name: 'Major',
-                        value: major
-                    }, {
-                        name: 'Minor',
-                        value: minor
-                    })
+                    .setURL('https://vidyascape.org/patchnotes');
+                if (major !== '') {
+                    pnotesEmbed.addField('Major', major);
+                }
+                if (minor !== '') {
+                    pnotesEmbed.addField('Minor', minor);
+                }
                 message.channel.send(pnotesEmbed);
                 //             message.channel.send(header+"```"+string+"```"+"https://vidyascape.org/patchnotes");
             })
