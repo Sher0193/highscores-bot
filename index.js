@@ -98,14 +98,24 @@ client.on("message", async message => {
         axios.get('https://vidyascape.org/files/patchnotes.json').then(response => {
             let pn1 = response.data[0];
             let header = '**'+pn1['header'] + '**\n';
-            let string = "";
+            let major = "";
+            let minor = "";
             for (let i = 0; i < pn1['major'].length; i++) {
-                string += pn1['major'][i] + '\n';
+                major += pn1['major'][i] + '\n';
             }
             for (let i = 0; i < pn1['minor'].length; i++) {
-                string += pn1['minor'][i] + '\n';
+                minor += pn1['minor'][i] + '\n';
             }
-            message.channel.send(header+"```"+string+"```"+"https://vidyascape.org/patchnotes");
+            const pnotesEmbed = new Discord.MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(header)
+                .setURL('https://vidyascape.org/patchnotes')
+                .addFields(
+                    { name: 'Major', value: major },
+                    { name: 'Minor', value: minor }
+                )
+            message.channel.send(pnotesEmbed);    
+//             message.channel.send(header+"```"+string+"```"+"https://vidyascape.org/patchnotes");
     });
     }
 
