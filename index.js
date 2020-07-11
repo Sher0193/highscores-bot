@@ -54,7 +54,7 @@ client.on("message", async message => {
     // It's good practice to ignore other bots. This also makes your bot ignore itself
     // and not get into a spam loop (we call that "botception").
     if (message.author.bot) return;
-          
+
     if (message.content.toLowerCase().includes("read the wiki")) {
         message.channel.send("READ THE WIKI http://vscape.wikidot.com/");
     }
@@ -98,11 +98,11 @@ client.on("message", async message => {
 
           message.channel.send(exampleEmbed);    
     }*/
-    
+
     if (command === "dl" || command === "download") {
         message.channel.send("https://vidyascape.org/downloads");
     }
-    
+
     if (command === "wiki" || command === "readwiki") {
         message.channel.send("http://vscape.wikidot.com/");
     }
@@ -111,6 +111,14 @@ client.on("message", async message => {
     }
     if (command === "map") {
         message.channel.send("https://vidyascape.org/map");
+    }
+    if (command === "locked" || command === "btfo") {
+        const btfoEmbed = new Discord.MessageEmbed()
+            .setColor('RANDOM')
+            .setTitle('/v/scape BTFO (Port-Mortem) - 2018-08-04')
+            .setDescription('If your account is locked, you will need to contact a staff member to have it unlocked for you. We are going to restore all accounts no matter how long that takes us. You can message us on Steam from the /v/scape Steam group or make a new account and message us in game.')
+            .setURL('https://vidyascape.org/devblog#vscape-btfo');
+        message.channel.send(btfoEmbed);
     }
 
     if (command === "pnotes" || command === "pn") {
