@@ -1,30 +1,30 @@
 const getValidSkills = () => {
-  return [
-    'overall',
-    'attack',
-    'defence',
-    'strength',
-    'hitpoints',
-    'ranged',
-    'prayer',
-    'magic',
-    'cooking',
-    'woodcutting',
-    'fletching',
-    'fishing',
-    'firemaking',
-    'crafting',
-    'smithing',
-    'mining',
-    'herblore',
-    'agility',
-    'thieving',
-    'slayer',
-    'farming',
-    'runecrafting',
-    'hunter',
-    'construction',
-  ];
+    return [
+        'overall',
+        'attack',
+        'defence',
+        'strength',
+        'hitpoints',
+        'ranged',
+        'prayer',
+        'magic',
+        'cooking',
+        'woodcutting',
+        'fletching',
+        'fishing',
+        'firemaking',
+        'crafting',
+        'smithing',
+        'mining',
+        'herblore',
+        'agility',
+        'thieving',
+        'slayer',
+        'farming',
+        'runecrafting',
+        'hunter',
+        'construction',
+    ];
 };
 
 const levDist = function(s, t) {
@@ -81,24 +81,24 @@ const levDist = function(s, t) {
 const levRatio = function(s, t) {
 
     return (levDist(s, t) / t.length);
-    
+
 }
 
-const ordinal = function (n) {
-    
+const ordinal = function(n) {
+
     var string = "";
     var sigDigit = n % 10;
     var postfix = sigDigit === 1 && n % 100 != 11 ? "st" : sigDigit === 2 && n % 100 != 12 ? "nd" : sigDigit === 3 && n % 100 != 13 ? "rd" : "th";
     string = n + postfix;
     return string;
-    
+
 }
 
-const equate = function(xp){
+const equate = function(xp) {
     return Math.floor(xp + 300 * Math.pow(2, xp / 7));
 };
- 
-const level_to_xp = function(level){
+
+const level_to_xp = function(level) {
     var xp = 0;
 
     for (var i = 1; i < level; i++)
@@ -107,7 +107,7 @@ const level_to_xp = function(level){
     return Math.floor(xp / 4);
 };
 
-const xp_to_level = function(xp){
+const xp_to_level = function(xp) {
     var level = 1;
 
     while (level_to_xp(level) < xp)
