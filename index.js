@@ -94,7 +94,7 @@ client.on("message", async message => {
   
   if(command === "tracker") {
         if (!message.channel.name.includes("bot")) {
-          message.channel.send("Please keep to designated bot channel.");
+          message.channel.send("Please keep this command to a designated bot channel.");
           return;
         }
         var mod = args[0] != undefined ? args[0].toLowerCase() : "";
@@ -121,7 +121,7 @@ client.on("message", async message => {
   
   if(command === "stats") {
       if (!message.channel.name.includes("bot")) {
-          message.channel.send("Please keep to designated bot channel.");
+          message.channel.send("Please keep this command to a designated bot channel.");
           return;
       }
         var player = args[0] != undefined ? args.join(" ").toLowerCase() : undefined;
