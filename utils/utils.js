@@ -113,7 +113,7 @@ const xp_to_level = function(xp){
     while (level_to_xp(level) < xp)
         level++;
 
-    return level >= 99 ? 99 : level;
+    return level >= 99 ? 99 : level - 1;
 };
 
 exports.xp_to_level = xp_to_level;

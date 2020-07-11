@@ -22,7 +22,7 @@ class ScoreboardHandler {
 		if (existing !== null) {
 			this.removeScoreboard(existing.getId());
 		}
-		this.scoreboards.push(new Scoreboard(id, null, null, null));
+		this.scoreboards.push(new Scoreboard(id, null, null, null, null));
 	}
 	
 	removeScoreboard(id) {

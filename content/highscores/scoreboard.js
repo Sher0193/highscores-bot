@@ -6,10 +6,11 @@ class Scoreboard {
 	scores = new Array();
 	cats = new Array();
     ranks = new Array();
+    levels = new Array();
 	
 	channel = null;
 	
-	constructor(channel, scores, cats, ranks) {
+	constructor(channel, scores, cats, ranks, levels) {
 		if (scores !== null) {
 			this.scores = scores;
 		}
@@ -18,6 +19,9 @@ class Scoreboard {
 		}
 		if (ranks !== null) {
             this.ranks = ranks;
+        }
+        if (levels !== null) {
+            this.levels = levels;
         }
 		this.channel = channel;	
 	}
@@ -55,14 +59,14 @@ class Scoreboard {
         var string = "";
 		for (let i = 0, j = 1; i < this.cats.length; i++) {
 			if (this.cats[i] !== "") {
-                var levelString = i == 0 ? "" : "**(Level " + utils.xp_to_level(this.scores[i]) + ")**";
+                var levelString = i == 0 ? "" : "**(Level " + this.levels[i] + ")**";
 				string += ("*" + utils.ordinal(this.ranks[i]) + "*") + " **" + this.cats[i] + "**: " + this.scores[i] + " XP " + levelString + "\n";
 			}
 		}
 		return string;
     }
 	
-	addScore(cat, amt, rank) {
+	addScore(cat, amt, rank, level) {
 		var found = false;
 		var toTry = cat.trim();
 		for (let j = 0; j < this.cats.length; j++) {
@@ -70,6 +74,7 @@ class Scoreboard {
 				found = true;
 				this.scores[j] = this.scores[j] + amt < 0 ? 0 : this.scores[j] + amt;
                 this.ranks[j] = rank;
+                this.levels[j] = level;
 				break;
 			}
 		}
@@ -78,11 +83,12 @@ class Scoreboard {
                 this.cats.push((toTry.charAt(0).toUpperCase() + toTry.slice(1).toLowerCase()));
                 this.scores.push(amt);
                 this.ranks.push(rank);
+                this.levels.push(level);
             }
 		}
 	}
 	
-	addScores(cats, amt, rank) {
+	addScores(cats, amt, rank, level) {
 		for (let i = 0; i < cats.length; i++) {
 			this.addScore(cats[i], amt);
 		}
@@ -106,6 +112,10 @@ class Scoreboard {
                     var tempRank = this.ranks[j];
                     this.ranks[j] = this.ranks[j + 1];
                     this.ranks[j + 1] = tempRank;
+                    // swap levels
+                    var tempLevel = this.levels[j];
+                    this.levels[j] = this.levels[j + 1];
+                    this.levels[j + 1] = tempLevel;
 				}
 			}
 		}

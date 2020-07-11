@@ -22,5 +22,9 @@
 {
     "command" : "stats",
     "explanation" : "Displays a Vidyascape user's experience and levels. Usage: !stats [user]."
+},
+{
+    "command" : "roll",
+    "explanation" : "meme"
 }
 ]

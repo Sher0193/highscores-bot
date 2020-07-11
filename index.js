@@ -136,7 +136,7 @@ client.on("message", async message => {
                 sh.addScoreboard(message.channel.id);
                 var sb = sh.getScoreboardById(message.channel.id);
                 utils.getValidSkills().map(s => {
-                        sb.addScore(s, response.data[s + '_xp'], response.data[s + '_rank']);
+                        sb.addScore(s, response.data[s + '_xp'], response.data[s + '_rank'], response.data[s + '_lvl']);
                 });
                 m.delete();
                 message.channel.send(sb.buildScoreboard((player.charAt(0).toUpperCase() + player.substring(1)) + "'s Stats", "player"));
@@ -154,6 +154,11 @@ client.on("message", async message => {
     // The second ping is an average latency between the bot and the websocket server (one-way, not round-tripiiiiiiiiuuuuu)
     const m = await message.channel.send("Ping?");
     m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
+  }
+  
+  if(command === "roll") {
+      let rolls = require("./data/rolls.json");
+      message.channel.send(rolls[Math.floor((Math.random() * rolls.length))]);
   }
   
   if (command === "uptime" || command === "up") {
