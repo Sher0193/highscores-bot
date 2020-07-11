@@ -24,6 +24,8 @@ if (config.daemon) {
 
 const sh = new ScoreboardHandler();
 
+var pnTimeout = new Date().getTime();
+
 client.on("ready", () => {
     // This event will run if the bot starts, and logs in, successfully.
     console.log(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
@@ -91,6 +93,37 @@ client.on("message", async message => {
 
           message.channel.send(exampleEmbed);    
     }*/
+    
+    if (command === "pnotes" || command === "pn") {
+        if ((new Date().getTime()) - 30000 < pnTimeout) {
+            message.channel.send("Please wait before using this command again...");
+            return;
+        }
+        pnTimeout = new Date().getTime();
+        const scrape = require('website-scraper');
+        const PhantomPlugin = require('website-scraper-phantom');
+        var fs = require('fs');
+        var DomParser = require('dom-parser');
+        var parser = new DomParser();
+        const m = await message.channel.send("Scraping patchnotes from https://vidyascape.org/patchnotes ...");
+        
+       await scrape({
+            urls: ['https://vidyascape.org/patchnotes'],
+            directory: './data/saved',
+            plugins: [ new PhantomPlugin() ]
+        })
+        .then(function(response) {
+            fs.readFile('./data/saved/index.html', 'utf8', (err, data) => {
+                if (err) throw err;
+                var dom = parser.parseFromString(data);
+                var cards = dom.getElementsByClassName("card-body");
+                var regex = /(<div[^>]+>|<div>|<\/div>)/g;
+                var pnotes = cards[1].innerHTML.replace(regex, "\n");
+                m.edit("```" + pnotes + "```https://vidyascape.org/patchnotes");
+            });
+            utils.deleteFolderRecursive('./data/saved');
+        });
+    }
 
     if (command === "tracker") {
         if (!message.channel.name.includes("bot")) {

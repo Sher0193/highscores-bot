@@ -107,16 +107,23 @@ const level_to_xp = function(level) {
     return Math.floor(xp / 4);
 };
 
-const xp_to_level = function(xp) {
-    var level = 1;
-
-    while (level_to_xp(level) < xp)
-        level++;
-
-    return level >= 99 ? 99 : level - 1;
+const deleteFolderRecursive = function(path) {
+    const fs = require('fs');
+    const Path = require('path');
+  if (fs.existsSync(path)) {
+    fs.readdirSync(path).forEach((file, index) => {
+      const curPath = Path.join(path, file);
+      if (fs.lstatSync(curPath).isDirectory()) { // recurse
+        deleteFolderRecursive(curPath);
+      } else { // delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+    fs.rmdirSync(path);
+  }
 };
 
-exports.xp_to_level = xp_to_level;
+exports.deleteFolderRecursive = deleteFolderRecursive;
 exports.getValidSkills = getValidSkills;
 exports.levRatio = levRatio;
 exports.ordinal = ordinal;
