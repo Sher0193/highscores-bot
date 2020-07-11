@@ -130,9 +130,9 @@ client.on("message", async message => {
                 console.log(error);
                 m.edit("Unable to fetch data.");
             })
-            .finally() {
+            .finally(function() {
                 requests--;
-            };
+            )};
     }
 
     if (command === "tracker") {
@@ -164,9 +164,9 @@ client.on("message", async message => {
                 console.log(error);
                 m.edit("Unable to fetch data.");
             })
-            .finally() {
+            .finally(function() {
                 requests--;
-            };
+            )};
     }
 
     if (command === "stats") {
@@ -201,9 +201,9 @@ client.on("message", async message => {
                 console.log(error);
                 m.edit("Unable to fetch data.");
             })
-            .finally() {
+            .finally(function() {
                 requests--;
-            };
+            )};
     }
 
     if (command === "ping") {
