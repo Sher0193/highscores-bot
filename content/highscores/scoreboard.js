@@ -39,6 +39,9 @@ class Scoreboard {
                 .setTitle(title)
                 .setThumbnail('https://i.imgur.com/MQeQ1NW.png')
                 .setDescription(flag === "tracker" ? this.trackerToString() : flag === "player" ? this.playerToString() : "Something went wrong. Go bug Ovid.");
+                if (flag === "player") {
+                    scoreEmbed.setURL("https://vidyascape.org/highscores?player=" + title.split("'")[0]);
+                }
             return scoreEmbed;
         }
     }
