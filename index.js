@@ -132,7 +132,7 @@ client.on("message", async message => {
             })
             .finally(function() {
                 requests--;
-            )};
+            });
     }
 
     if (command === "tracker") {
@@ -166,7 +166,7 @@ client.on("message", async message => {
             })
             .finally(function() {
                 requests--;
-            )};
+            });
     }
 
     if (command === "stats") {
@@ -203,7 +203,7 @@ client.on("message", async message => {
             })
             .finally(function() {
                 requests--;
-            )};
+            });
     }
 
     if (command === "ping") {
