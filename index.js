@@ -97,12 +97,12 @@ client.on("message", async message => {
     if (command === "pnotes" || command === "pn") {
         axios.get('https://vidyascape.org/files/patchnotes.json').then(response => {
             let pn1 = response.data[0];
-            let string = pn1['header\n'];
+            let string = pn1['header'] + '\n';
             for (let i = 0; i < pn1['major'].length; i++) {
-                string += pn1['major'][i];
+                string += pn1['major'][i] + '\n';
             }
             for (let i = 0; i < pn1['minor'].length; i++) {
-                string += pn1['minor'][i];
+                string += pn1['minor'][i] + '\n';
             }
             message.channel.send("```"+string+"```");
     });
