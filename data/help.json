@@ -1,0 +1,26 @@
+[
+{
+	"command" : "help",
+	"explanation" : "Use \"!help\" to view an explanation for the various functions of HighscoresBot. Use \"!help [command]\" to view an explanation for that command."
+},
+{
+	"command" : "ping",
+	"explanation" : "HighscoresBot will measure and output the time it takes in milliseconds to receive a response from its server."
+},
+{
+	"command" : "about",
+	"explanation" : "Outputs information about the bot."
+},
+{
+    "command" : "uptime",
+    "explanation" : "How long the bot has been online."
+},
+{
+    "command" : "tracker",
+    "explanation" : "Outputs the front page of Vidyascape's Experience Tracker. Options: Daily, Weekly, Monthly."
+},
+{
+    "command" : "stats",
+    "explanation" : "Displays a Vidyascape user's experience and levels. Usage: !stats [user]."
+}
+]

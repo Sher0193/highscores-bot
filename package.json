@@ -1,0 +1,17 @@
+{
+  "name": "highscores-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "daemonize-process": "^3.0.0",
+    "discord.js": "^12.2.0"
+  }
+}
