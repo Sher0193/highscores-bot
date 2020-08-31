@@ -22,9 +22,12 @@ if (config.daemon) {
     daemonizeProcess();
 }
 
+const PRESCRIBED_DOSES = ["https://i.imgur.com/KoOZsNx.png", "https://i.imgur.com/BKhBPJ7.gif", "https://i.imgur.com/0n4BL5o.png", "https://i.imgur.com/eycj0iv.png", "https://i.imgur.com/ZWdeD9S.gif"];
+
 const sh = new ScoreboardHandler();
 
 const MAX_REQUESTS = 3;
+
 var requests = 0;
 
 client.on("ready", () => {
@@ -57,6 +60,11 @@ client.on("message", async message => {
 
     if (message.content.toLowerCase().includes("read the wiki")) {
         message.channel.send("READ THE WIKI http://vscape.wikidot.com/");
+    }
+    if (message.content.toLowerCase() === ">daily") {
+        let dose = (PRESCRIBED_DOSES[Math.floor((Math.random() * PRESCRIBED_DOSES.length))]);
+        
+        message.channel.send("", {files: [dose]});
     }
 
     // Also good practice to ignore any message that does not start with our prefix, 
