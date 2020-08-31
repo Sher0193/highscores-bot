@@ -61,11 +61,6 @@ client.on("message", async message => {
     if (message.content.toLowerCase().includes("read the wiki")) {
         message.channel.send("READ THE WIKI http://vscape.wikidot.com/");
     }
-    if (message.content.toLowerCase() === ">daily") {
-        let dose = (PRESCRIBED_DOSES[Math.floor((Math.random() * PRESCRIBED_DOSES.length))]);
-        
-        message.channel.send("", {files: [dose]});
-    }
 
     // Also good practice to ignore any message that does not start with our prefix, 
     // which is set in the configuration file.
@@ -106,6 +101,11 @@ client.on("message", async message => {
 
           message.channel.send(exampleEmbed);    
     }*/
+    
+    if (command === "daily") {
+        let dose = (PRESCRIBED_DOSES[Math.floor((Math.random() * PRESCRIBED_DOSES.length))]);
+        message.channel.send("", {files: [dose]});
+    }
 
     if (command === "dl" || command === "download") {
         message.channel.send("https://vidyascape.org/downloads");
