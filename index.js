@@ -99,14 +99,6 @@ client.on("message", async message => {
 
           message.channel.send(exampleEmbed);    
     }*/
-    
-    if (command === "daily") {
-        message.channel.send("", {files: ["img/SPOILER_daily.gif"]});
-    }
-    
-    if (command === "weekly") {
-        message.channel.send("", {files: ["img/SPOILER_weekly.gif"]});
-    }
 
     if (command === "dl" || command === "download") {
         message.channel.send("https://vidyascape.org/downloads");
