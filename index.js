@@ -22,8 +22,6 @@ if (config.daemon) {
     daemonizeProcess();
 }
 
-const PRESCRIBED_DOSES = ["https://i.imgur.com/KoOZsNx.png", "https://i.imgur.com/BKhBPJ7.gif", "https://i.imgur.com/0n4BL5o.png", "https://i.imgur.com/eycj0iv.png", "https://i.imgur.com/ZWdeD9S.gif"];
-
 const sh = new ScoreboardHandler();
 
 const MAX_REQUESTS = 3;
@@ -103,8 +101,11 @@ client.on("message", async message => {
     }*/
     
     if (command === "daily") {
-        let dose = (PRESCRIBED_DOSES[Math.floor((Math.random() * PRESCRIBED_DOSES.length))]);
-        message.channel.send("", {files: [dose]});
+        message.channel.send("", {files: ["img/SPOILER_daily.gif"]});
+    }
+    
+    if (command === "weekly") {
+        message.channel.send("", {files: ["img/SPOILER_weekly.gif"]});
     }
 
     if (command === "dl" || command === "download") {
