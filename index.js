@@ -133,14 +133,17 @@ client.on("message", async message => {
                 let major = '';
                 let minor = '';
                 for (let i = 0; i < pn1['major'].length; i++) {
-                    major += pn1['major'][i] + '\n';
+                    major += '- ' + pn1['major'][i] + '\n';
                 }
                 for (let i = 0; i < pn1['minor'].length; i++) {
-                    minor += pn1['minor'][i] + '\n';
+                    minor += '- ' + pn1['minor'][i] + '\n';
                 }
+                const attachment = new Discord.MessageAttachment('./img/sb.png', 'sb.png');
                 const pnotesEmbed = new Discord.MessageEmbed()
+                    .attachFiles(attachment)
                     .setColor('RANDOM')
                     .setTitle(header)
+                    .setThumbnail('attachment://sb.png')
                     .setURL('https://vidyascape.org/patchnotes');
                 if (major !== '') {
                     pnotesEmbed.addField('Major', major);
@@ -149,7 +152,6 @@ client.on("message", async message => {
                     pnotesEmbed.addField('Minor', minor);
                 }
                 message.channel.send(pnotesEmbed);
-                //             message.channel.send(header+"```"+string+"```"+"https://vidyascape.org/patchnotes");
             })
             .catch(function(error) {
                 // handle error
