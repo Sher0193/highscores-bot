@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write '{*,public/*,src/**/*}.{js,json,css,md}'",
+    "lint": "eslint src --fix; exit 0",
+    "fix": "npm run prettier && npm run lint"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +18,9 @@
     "del": "^5.1.0",
     "discord.js": "^12.2.0",
     "dom-parser": "^0.1.6",
+    "eslint": "^7.13.0",
     "got": "^10.4.0",
-    "jsdom": "^16.2.2"
+    "jsdom": "^16.2.2",
+    "prettier": "^2.1.2"
   }
 }

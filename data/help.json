@@ -35,4 +35,8 @@
     "command" : "roll",
     "explanation" : "meme"
 }
+{
+    "command" : "vsg",
+    "explanation" : "Gives a link to the current thread."
+}
 ]
