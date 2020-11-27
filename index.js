@@ -59,6 +59,10 @@ client.on("message", async (message) => {
   // and not get into a spam loop (we call that "botception").
   if (message.author.bot) return;
 
+  if (message.content.toLowerCase().includes("nerf")) {        
+    message.react("702889157596545205");
+  }
+
   if (message.content.toLowerCase().includes("read the wiki")) {
     message.channel.send("READ THE WIKI http://vscape.wikidot.com/");
   }
