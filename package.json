@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "daemonize-process": "^3.0.0",
     "del": "^5.1.0",
     "discord.js": "^12.2.0",
